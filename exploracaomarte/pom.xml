@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.diogobarbosa.exploracaomarte</groupId>
+	<artifactId>exploracaomarte</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>exploracaomarte</name>
+
+	<developers>
+		<developer>
+			<name>Diogo Barbosa</name>
+			<email>diogoalmeidabarbosa@brq.com</email>
+			<organization>Elo7</organization>
+		</developer>
+	</developers>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<modules>
+		<module>exploracaomartecore</module>
+		<module>exploracaomarteweb</module>
+		<module>exploracaomarteconsole</module>
+	</modules>
+	
+</project>
