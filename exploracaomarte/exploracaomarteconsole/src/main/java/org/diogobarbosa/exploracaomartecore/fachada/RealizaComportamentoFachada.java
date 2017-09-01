@@ -9,13 +9,14 @@ import org.diogobarbosa.exploracaomartecore.entidade.interfaces.Sonda;
 import org.diogobarbosa.exploracaomartecore.enums.DirecaoGiroSondaEnum;
 import org.diogobarbosa.exploracaomartecore.enums.DirecaoOrientacaoSondaEnum;
 import org.diogobarbosa.exploracaomartecore.excecoes.ColisaoException;
+import org.diogobarbosa.exploracaomartecore.excecoes.InstrucaoInvalidaException;
 
 public class RealizaComportamentoFachada {
 
 	private static final String INSTRUCAO_MOVER = "M";
 	
 	
-	public String RealizarComportamento(SondaDTO sondaDTO, Planalto planalto) throws ColisaoException {
+	public String RealizarComportamento(SondaDTO sondaDTO, Planalto planalto) throws ColisaoException, InstrucaoInvalidaException {
 		
 		Coordenada coordenadaInicial = CriadorCoordenadaXY.criarCoordenada(sondaDTO.getCoordenadaX(), sondaDTO.getCoordenadaY());
 		CriadorSondaPadrao criadorSondaPadrao = new CriadorSondaPadrao();
@@ -37,6 +38,9 @@ public class RealizaComportamentoFachada {
 			}else
 			if(instrucao.equalsIgnoreCase(INSTRUCAO_MOVER)) {
 				sonda.moverSonda();
+			}else {
+				
+				throw new InstrucaoInvalidaException("Instrução inválida");
 			}
 		}
 		

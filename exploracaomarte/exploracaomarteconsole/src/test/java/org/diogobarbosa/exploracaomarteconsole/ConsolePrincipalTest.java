@@ -6,13 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.diogobarbosa.exploracaomartecore.excecoes.ColisaoException;
+import org.diogobarbosa.exploracaomartecore.excecoes.InstrucaoInvalidaException;
 import org.diogobarbosa.exploracaomartecore.fachada.ExploraMarteFachada;
 import org.junit.Test;
 
 public class ConsolePrincipalTest {
 
 	@Test
-	public void testarExploracaoMarteViaConsole() throws ColisaoException {
+	public void testarExploracaoMarteViaConsole() throws ColisaoException, InstrucaoInvalidaException {
 
 			List<String> listaInstrucoesSonda = new ArrayList<String>();
 			listaInstrucoesSonda.add("5 5");

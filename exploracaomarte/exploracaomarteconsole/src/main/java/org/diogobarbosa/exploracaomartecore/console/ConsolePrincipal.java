@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import org.diogobarbosa.exploracaomartecore.excecoes.ColisaoException;
+import org.diogobarbosa.exploracaomartecore.excecoes.InstrucaoInvalidaException;
 import org.diogobarbosa.exploracaomartecore.fachada.ExploraMarteFachada;
 
 public class ConsolePrincipal {
@@ -32,7 +33,8 @@ public class ConsolePrincipal {
 			
 		} catch (ColisaoException e) {
 			e.printStackTrace();
-			
+		} catch (InstrucaoInvalidaException e) {
+			e.printStackTrace();
 		} finally {
 			scanner.close();
 		}
