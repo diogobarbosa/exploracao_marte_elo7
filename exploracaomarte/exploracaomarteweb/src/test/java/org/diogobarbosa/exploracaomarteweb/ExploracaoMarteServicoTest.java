@@ -1,5 +1,8 @@
 package org.diogobarbosa.exploracaomarteweb;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -39,6 +42,11 @@ public class ExploracaoMarteServicoTest {
 								  "3 3 E\r\n" + 
 								  "MMRMMRMRRM"));
 		
-		Assert.assertEquals(200, response.getStatus());
+		String respostaServico = response.readEntity(String.class);
+		
+		assertEquals(200, response.getStatus());
+		assertTrue(respostaServico.contains("1 3 N"));
+		assertTrue(respostaServico.contains("5 1 E"));
+
 	}	
 }

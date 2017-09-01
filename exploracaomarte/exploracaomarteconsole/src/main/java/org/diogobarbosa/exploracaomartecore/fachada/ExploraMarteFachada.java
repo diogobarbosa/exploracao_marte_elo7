@@ -12,9 +12,14 @@ import org.diogobarbosa.exploracaomartecore.excecoes.ColisaoException;
 
 public class ExploraMarteFachada {
 
-	public String explorarMarte(String instrucoesComandos) throws ColisaoException {
+	public String explorarMarte(String instrucoesExploracao) throws ColisaoException {
+
+		List<String> listaInstrucoes = Arrays.asList(instrucoesExploracao.split(System.getProperty("line.separator")));
+		return explorarMarte(listaInstrucoes);
+	}
+	
+	public String explorarMarte(List<String> listaInstrucoes) throws ColisaoException {
 		
-		List<String> listaInstrucoes = Arrays.asList(instrucoesComandos.split(System.getProperty("line.separator")));
 		PlanaltoDTO planaltoDTO = montarPlanaltoDTO(listaInstrucoes.get(0));
 		
 		List<SondaDTO> listaSondaDTO = new ArrayList<SondaDTO>(); 
