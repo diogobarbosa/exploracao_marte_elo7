@@ -22,24 +22,25 @@ public class ExploracaoMarteServico {
 
 		try {
 			
-		
-			System.out.println("Parametros de entrada: \n" + instrucoesExploracaoMarte);
-
 			ExploraMarteFachada exploraMarteFachada = new ExploraMarteFachada();
 			String retornoExploracao = exploraMarteFachada.explorarMarte(instrucoesExploracaoMarte);
 
+			Response response = Response.ok().entity(retornoExploracao).build();
+			System.out.println("Parametros de entrada: \n" + instrucoesExploracaoMarte);
 			System.out.println("Retorno da exploração: \n" + retornoExploracao);
-
-			return Response.ok().entity(retornoExploracao).build();
+			
+			return response;
 			
 		}catch(ColisaoException e) {
 			
-			e.printStackTrace();
 			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
 			
 		}catch(InstrucaoInvalidaException e) {
 			
-			e.printStackTrace();
+			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
+		}catch(Exception e) {
+			
+			System.out.println(e.getMessage());
 			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
 		}
 			

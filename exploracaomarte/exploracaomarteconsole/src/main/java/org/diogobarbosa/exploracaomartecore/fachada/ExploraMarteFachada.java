@@ -20,41 +20,51 @@ public class ExploraMarteFachada {
 		List<String> listaInstrucoes = Arrays.asList(instrucoesExploracao.split(System.getProperty("line.separator")));
 		return explorarMarte(listaInstrucoes);
 	}
-	
+
 	public String explorarMarte(List<String> listaInstrucoes) throws ColisaoException, InstrucaoInvalidaException {
-		
+
 		PlanaltoDTO planaltoDTO = new CriadorPlanaltoDTO().montarPlanaltoDTO(listaInstrucoes.get(0));
-		
-		List<SondaDTO> listaSondaDTO = new ArrayList<SondaDTO>(); 
+
+		List<SondaDTO> listaSondaDTO = new ArrayList<SondaDTO>();
 		listaSondaDTO = criaListaSondaDTO(listaInstrucoes, planaltoDTO);
-		
-		Planalto planalto = CriadorPlanaltoRetangular.criarPlanalto(planaltoDTO.getCoordenadaX(), planaltoDTO.getCoordenadaY());
+
+		Planalto planalto = CriadorPlanaltoRetangular.criarPlanalto(planaltoDTO.getCoordenadaX(),
+				planaltoDTO.getCoordenadaY());
 
 		RealizaComportamentoFachada realizaComportamentoFachada = new RealizaComportamentoFachada();
-		
+
 		String retorno = "";
 		for (SondaDTO sondaDTO : listaSondaDTO) {
-			 retorno = retorno+realizaComportamentoFachada.RealizarComportamento(sondaDTO, planalto)+"\n";
+			retorno = retorno + realizaComportamentoFachada.RealizarComportamento(sondaDTO, planalto) + "\n";
 		}
-		
+
 		return retorno;
 	}
 
 	private List<SondaDTO> criaListaSondaDTO(List<String> listaInstrucoes, PlanaltoDTO planaltoDTO)
 			throws ColisaoException, InstrucaoInvalidaException {
-		
-		List<SondaDTO> listaSondaDTO = new ArrayList<SondaDTO>(); 
-		
-		for (int index = 1; index < listaInstrucoes.size(); index = index+2) {
-			String posicaoInicialSonda = listaInstrucoes.get(index);
-			String instrucaoSonda = listaInstrucoes.get(index+1);
+
+		try {
+			List<SondaDTO> listaSondaDTO = new ArrayList<SondaDTO>();
+
+			for (int index = 1; index < listaInstrucoes.size(); index = index + 2) {
+				String posicaoInicialSonda = listaInstrucoes.get(index);
+				String instrucaoSonda = listaInstrucoes.get(index + 1);
+
+				SondaDTO sonda = new CriadorSondaDTO().montarSondaDTO(posicaoInicialSonda, instrucaoSonda, planaltoDTO);
+				listaSondaDTO.add(sonda);
+			}
+
+			return listaSondaDTO;
 			
-			SondaDTO sonda = new CriadorSondaDTO().montarSondaDTO(posicaoInicialSonda, instrucaoSonda, planaltoDTO);
-			listaSondaDTO.add(sonda);
+		} catch (InstrucaoInvalidaException e) {
+			
+			throw e;
 		}
-		
-		return listaSondaDTO;
+		catch (Exception e) {
+			
+			throw new InstrucaoInvalidaException("Instrução incompleta");
+		}
 	}
-	
-	
+
 }

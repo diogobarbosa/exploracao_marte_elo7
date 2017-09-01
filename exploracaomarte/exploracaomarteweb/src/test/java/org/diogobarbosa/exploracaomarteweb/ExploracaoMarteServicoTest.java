@@ -10,11 +10,9 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import org.diogobarbosa.exploracaomartecore.excecoes.InstrucaoInvalidaException;
 import org.diogobarbosa.exploracaomarteweb.servidor.ServidorGrizzly;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -58,12 +56,13 @@ public class ExploracaoMarteServicoTest {
 		Client client = ClientBuilder.newClient();
 		WebTarget target = client.target("http://localhost:8080");
 		Response response = target.path("/explorarmarte").request()
-				.post(Entity.text("5 5\r\n" + 
+				.post(Entity.text("A5 5\r\n" + 
 								  "1 2 N\r\n" + 
 								  "LMLMLMLMM\r\n" + 
 								  "3 3 E\r\n" + 
 								  "MMRMMRMRRM"));
 		
+		System.out.println(response.readEntity(String.class));
 		assertEquals(Status.BAD_REQUEST.getStatusCode(), response.getStatus());
 
 	}
@@ -80,6 +79,23 @@ public class ExploracaoMarteServicoTest {
 								  "3 3 E\r\n" + 
 								  "MMRMMRMRRM"));
 		
+		System.out.println(response.readEntity(String.class));
+		assertEquals(Status.BAD_REQUEST.getStatusCode(), response.getStatus());
+
+	}
+	
+	@Test
+	public void testaEnvioInstrucaoImcompletaSondaExplorarMarte() {
+		
+		Client client = ClientBuilder.newClient();
+		WebTarget target = client.target("http://localhost:8080");
+		Response response = target.path("/explorarmarte").request()
+				.post(Entity.text("5 5\r\n" + 
+								  "A 2 N\r\n" + 
+								  "LMLMLMLMM\r\n" + 
+								  "3 3 E\r\n"));
+		
+		System.out.println(response.readEntity(String.class));
 		assertEquals(Status.BAD_REQUEST.getStatusCode(), response.getStatus());
 
 	}
